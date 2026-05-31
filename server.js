@@ -62,8 +62,21 @@ const app = express()
 // CORS
 // --------------------
 app.use(cors({
-  origin: true,
+
+  origin: [
+    "https://meron-gallery.vercel.app",
+    "http://localhost:5173"
+  ],
+
+  methods: [
+    "GET",
+    "POST",
+    "PUT",
+    "DELETE"
+  ],
+
   credentials: true
+
 }))
 
 // --------------------
