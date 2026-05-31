@@ -1,4 +1,7 @@
-const API = "/api"
+const API =
+  import.meta.env.PROD
+    ? "https://meron-gallery-api.onrender.com/api"
+    : "/api"
 
 export async function loginUser(credentials){
 
