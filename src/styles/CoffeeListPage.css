@@ -1,0 +1,187 @@
+.coffee-page
+{
+    font-family: Inter, sans-serif;
+    padding: 60px 0;
+    max-width: 1100px;
+    margin: auto;
+}
+
+
+.coffee-header
+{
+    width: 100%;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.coffee-logo
+{
+    font-size: 44px;
+    font-weight: 700;
+}
+
+.coffee-actions
+{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.coffee-search
+{
+    padding: 8px 14px;
+    border-radius: 18px;
+    border: 1px solid #d0d0d0;
+    width: 200px;
+}
+
+
+
+.coffee-action-button
+{
+    background: none;
+    border: none;
+    font-size: 16px;
+    color: #7a7368;
+    cursor: pointer;
+}
+
+.coffee-action-button:hover
+{
+    color: black;
+}
+
+.coffee-subtitle
+{
+    margin: 25px 0;
+    color: #777;
+    text-align: left;
+}
+
+
+
+.coffee-table
+{
+    width: 100%;
+    background: #d1c7b8;
+    border-radius: 30px;
+
+    padding: 30px 40px;
+    box-sizing: border-box;
+}
+
+
+
+.coffee-table table
+{
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+.coffee-table th
+{
+    padding: 14px;
+    font-size: 17px;
+    font-weight: 600;
+}
+
+.coffee-table td
+{
+    padding: 14px;
+}
+
+.coffee-table tr
+{
+    cursor: pointer;
+}
+
+.coffee-table tr:hover
+{
+    background: #c6bba9;
+}
+
+
+.pagination
+{
+    margin-top: 25px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+
+    color: #777;
+}
+
+.pagination button
+{
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.pagination button:hover
+{
+    color: black;
+}
+
+
+
+/* RESPONSIVE */
+
+@media (max-width:900px){
+
+  .coffee-header{
+    flex-direction:column;
+    align-items:flex-start;
+    gap:20px;
+  }
+
+  .coffee-actions{
+    flex-wrap:wrap;
+    gap:10px;
+  }
+
+}
+
+@media (max-width:700px){
+
+  .coffee-actions{
+    width:100%;
+  }
+
+  .coffee-search{
+    width:100%;
+  }
+
+  .coffee-table{
+    padding:20px;
+    overflow-x:auto;
+  }
+
+  .coffee-table table{
+    min-width:600px;
+  }
+
+}
+
+@media (max-width:500px){
+
+  .coffee-logo{
+    font-size:34px;
+  }
+
+  .coffee-action-button{
+    font-size:14px;
+  }
+
+  .pagination{
+    flex-wrap:wrap;
+    gap:8px;
+  }
+
+}

@@ -1,0 +1,168 @@
+body{
+  margin:0;
+  font-family: Arial, Helvetica, sans-serif;
+  background:#f4f3f1;
+}
+
+
+/* center the page */
+
+.page{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+}
+
+
+/* main card */
+
+.landing-card{
+  width:1200px;
+  border:1px solid #ccc;
+  background:#f4f3f1;
+  padding:50px;
+}
+
+
+/* header */
+
+.header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:80px;
+}
+
+
+/* logo */
+
+.logo-container{
+  display:flex;
+  align-items:center;
+  gap:25px;
+}
+
+.logo-container img{
+  width:140px;
+  border-radius:30px;
+}
+
+.logo-container h1{
+  font-size:38px;
+  font-weight:700;
+  font-family:'Inter', sans-serif;
+}
+
+
+/* menu bar */
+
+.menu-bar{
+  background:#ebe9e7;
+  padding:12px 30px;
+  border-radius:14px;
+  display:flex;
+  gap:35px;
+}
+
+.menu-bar button{
+  border:none;
+  background:none;
+  font-size:18px;
+  color:#555;
+  cursor:pointer;
+}
+
+.menu-bar button:hover{
+  color:black;
+}
+
+
+/* main content */
+
+.content{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+
+/* left side */
+
+.left{
+  width:420px;
+}
+
+.left h2{
+  font-size:34px;
+  margin-bottom:25px;
+}
+
+.left p{
+  color:#777;
+  font-size:18px;
+  margin-bottom:40px;
+}
+
+
+/* button */
+
+.staff-btn{
+  background:#c9b79b;
+  border:none;
+  padding:14px 40px;
+  border-radius:10px;
+  font-size:16px;
+  cursor:pointer;
+}
+
+.staff-btn:hover{
+  background:#b5a384;
+}
+
+
+/* right image */
+
+.right img{
+  width:430px;
+  border-radius:20px;
+}
+
+/*  RESPONSIVE */
+
+@media (max-width:1024px){
+
+  .landing-card{
+    width:90%;
+  }
+
+}
+
+@media (max-width:768px){
+
+  .header{
+    flex-direction:column;
+    gap:20px;
+  }
+
+  .menu-bar{
+    flex-wrap:wrap;
+    justify-content:center;
+  }
+
+  .content{
+    flex-direction:column;
+    text-align:center;
+    gap:40px;
+  }
+
+  .left{
+    width:100%;
+  }
+
+  .right img{
+    width:100%;
+    max-width:350px;
+  }
+
+}

@@ -1,0 +1,166 @@
+.detail-page
+{
+    max-width:1100px;
+    margin:auto;
+    padding:60px;
+    font-family:Inter,sans-serif;
+}
+
+
+.detail-logo
+{
+    font-size:44px;
+    font-weight:700;
+    margin-bottom:50px;
+}
+
+
+/* MAIN CARD */
+
+.detail-content
+{
+    background:#d1c7b8;
+    border-radius:30px;
+
+    padding:40px;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    gap:60px;
+}
+
+
+
+.detail-info
+{
+    min-width:250px;
+    line-height:34px;
+}
+
+.coffee-name
+{
+    margin-bottom:25px;
+}
+
+
+
+.detail-chart
+{
+    width:260px;
+}
+
+.chart
+{
+    display:flex;
+    align-items:flex-end;
+    gap:30px;
+    height:140px;
+    margin-bottom:12px;
+}
+
+.bar
+{
+    width:40px;
+    background:#9e9485;
+    border-radius:4px;
+}
+
+.body
+{
+    height:110px;
+}
+
+.acidity
+{
+    height:50px;
+}
+
+.sweetness
+{
+    height:70px;
+}
+
+.aroma
+{
+    height:90px;
+}
+
+.chart-labels
+{
+    display:flex;
+    justify-content:space-between;
+    font-size:14px;
+}
+
+
+
+.detail-image
+{
+    background:#dcdcdc;
+    border-radius:12px;
+
+    padding:12px;         
+    
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.detail-image img
+{
+    width:220px;           
+
+    border-radius:12px;
+
+    transform:scale(1.00); 
+}
+
+
+
+.detail-buttons
+{
+    margin-top:50px;
+
+    display:flex;
+    justify-content:center;
+    gap:30px;
+}
+
+.detail-buttons button
+{
+    background:#c9bea9;
+    border:none;
+
+    padding:14px 30px;
+
+    border-radius:25px;
+
+    cursor:pointer;
+}
+
+.detail-buttons button:hover
+{
+    background:#b8ad97;
+}
+
+
+/*  RESPONSIVE  */
+
+@media (max-width:768px){
+
+  .detail-content{
+    flex-direction:column;
+    text-align:center;
+  }
+
+  .detail-image img{
+    width:180px;
+  }
+
+  .chart{
+    justify-content:center;
+  }
+
+}

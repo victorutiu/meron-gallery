@@ -1,0 +1,74 @@
+.chat-page {
+  max-width: 800px;
+  width: 95%;
+  margin: auto;
+  padding: 60px;
+  font-family: Inter, sans-serif;
+  text-align: center;
+}
+
+.chat-title {
+  font-size: 42px;
+  margin-bottom: 30px;
+}
+
+/* CHAT BOX */
+.chat-box {
+  background: #efe6d8; /* ✅ beige */
+  border-radius: 25px;
+  padding: 20px;
+
+  height: 450px; /* ✅ bigger */
+  overflow-y: auto;
+
+  text-align: left;
+  margin-bottom: 20px;
+
+  width: 100%;
+}
+
+.chat-message {
+  margin-bottom: 10px;
+  font-size: 15px;
+}
+
+/* INPUT */
+.chat-input {
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  width: 250px;
+  margin-right: 10px;
+}
+
+/* BUTTONS (same style as rest of app) */
+.chat-buttons {
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.chat-buttons button {
+  background: #c9bea9;
+  border: none;
+  padding: 14px 40px;
+  border-radius: 25px;
+  cursor: pointer;
+}
+
+.chat-buttons button:hover {
+  background: #b8ad97;
+}
+
+.chat-send-btn {
+  background: #c9bea9;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.chat-send-btn:hover {
+  background: #b8ad97;
+}

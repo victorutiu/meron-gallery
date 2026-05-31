@@ -1,0 +1,184 @@
+.blend-page{
+width:900px;                /* prevent horizontal shrinking */
+margin:auto;
+padding:60px 0;
+font-family:Inter, sans-serif;
+position:relative;
+}
+
+/* HEADER */
+
+.blend-header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:40px;
+}
+
+.blend-left{
+display:flex;
+align-items:center;
+gap:20px;
+}
+
+.blend-icon{
+width:70px;
+transform:rotate(-20deg);
+}
+
+.blend-logo{
+font-size:42px;
+font-weight:700;
+}
+
+.blend-subtitle{
+color:#777;
+}
+
+
+.blend-actions{
+display:flex;
+gap:20px;
+align-items:center;
+}
+
+.blend-search{
+padding:8px 14px;
+border-radius:18px;
+border:1px solid #ccc;
+}
+
+.blend-btn{
+border:none;
+background:none;
+cursor:pointer;
+color:#7a7368;
+}
+
+.blend-btn:hover{
+color:black;
+}
+
+
+.blend-table{
+background:#d1c7b8;
+border-radius:30px;
+padding:30px 40px;
+min-height:260px;
+width:95%;            
+}
+
+.blend-table table{
+width:100%;
+border-collapse:collapse;
+}
+
+.blend-table th{
+padding:14px;
+font-weight:600;
+}
+
+.blend-table td{
+padding:14px;
+}
+
+.blend-table tr{
+cursor:pointer;
+height:60px;                
+}
+
+.blend-table tr:hover{
+background:#c6bba9;
+}
+
+
+
+.blend-pagination{
+margin-top:20px;
+display:flex;
+justify-content:center;
+gap:15px;
+color:#777;
+}
+
+.blend-pagination button{
+border:none;
+background:none;
+cursor:pointer;
+}
+
+
+/* FLOATING IMAGES */
+
+.blends-floating{
+position:absolute;
+width:120px;
+opacity:0.3;
+pointer-events:none;        
+}
+
+.blends-img1{
+top:40px;
+left:80px;
+transform:rotate(-20deg);
+}
+
+.blends-img2{
+top:150px;
+left:450px;
+transform:rotate(20deg);
+}
+
+.blends-img3{
+bottom:30px;
+left:80px;
+transform:rotate(-10deg);
+}
+
+.blends-img4{
+bottom:40px;
+right:80px;
+transform:rotate(15deg);
+}
+
+.blends-img5{
+bottom:90px;
+left:400px;
+transform:rotate(-10deg);
+}
+
+.blends-img6{
+top:1px;
+right:10px;
+transform:rotate(15deg);
+}
+
+
+/*  RESPONSIVE */
+
+@media (max-width:1024px){
+
+  .blend-page{
+    width:90%;
+  }
+
+}
+
+@media (max-width:768px){
+
+  .blend-header{
+    flex-direction:column;
+    align-items:flex-start;
+    gap:20px;
+  }
+
+  .blend-actions{
+    width:100%;
+    justify-content:space-between;
+  }
+
+  .blends-floating{
+    display:none;
+  }
+
+}

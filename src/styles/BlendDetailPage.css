@@ -1,0 +1,131 @@
+.blend-detail-page{
+max-width:1100px;
+margin:auto;
+padding:60px 0;
+font-family:Inter, sans-serif;
+}
+
+.blend-detail-logo{
+font-size:44px;
+font-weight:700;
+margin-bottom:50px;
+}
+
+.blend-detail-container{
+display:flex;
+justify-content:space-between;
+align-items:flex-start;
+gap:80px;
+}
+
+
+.blend-detail-left{
+display:flex;
+flex-direction:column;
+gap:30px;
+}
+
+.blend-card{
+background:#d1c7b8;
+padding:30px;
+border-radius:25px;
+width:260px;
+text-align:center;
+}
+
+.blend-card h3{
+margin-bottom:15px;
+}
+
+.blend-description{
+background:#dcdcdc;
+padding:25px;
+border-radius:25px;
+width:260px;
+}
+
+.blend-description h3{
+margin-bottom:15px;
+text-align:center;
+}
+
+.blend-description p{
+font-size:14px;
+line-height:20px;
+}
+
+.blend-back{
+margin-top:10px;
+background:#c9bea9;
+border:none;
+padding:14px 40px;
+border-radius:25px;
+cursor:pointer;
+}
+
+.blend-back:hover{
+background:#b8ad97;
+}
+
+
+.blend-detail-right{
+display:flex;
+flex-direction:column;
+gap:40px;
+}
+
+.blend-pie{
+width:360px;
+height:260px;
+}
+
+.blend-bar{
+width:420px;
+height:240px;
+}
+
+
+.blend-preview-buttons
+{
+    display:flex;
+    gap:20px;
+    margin-top:20px;
+}
+
+.blend-preview-buttons button
+{
+    background:#c9bea9;
+    border:none;
+    padding:14px 40px;
+    border-radius:25px;
+    cursor:pointer;
+    font-size:14px;
+}
+
+.blend-preview-buttons button:hover
+{
+    background:#b8ad97;
+}
+
+
+
+/* RESPONSIVE */
+
+@media (max-width:768px){
+
+  .blend-detail-container{
+    flex-direction:column;
+    align-items:center;
+  }
+
+  .blend-detail-right{
+    align-items:center;
+  }
+
+  .blend-pie,
+  .blend-bar{
+    width:100%;
+    max-width:350px;
+  }
+
+}

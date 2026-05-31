@@ -1,0 +1,47 @@
+# Get all coffees
+query GetCoffees {
+  coffees {
+    id
+    name
+    origin
+    price
+  }
+}
+
+# Get one coffee
+query GetCoffee {
+  coffee(id: 1) {
+    id
+    name
+    origin
+    price
+  }
+}
+
+
+mutation {
+  createCoffee(
+    name: "GraphQL Coffee"
+    origin: "Kenya"
+    process: "Washed"
+    price: "100 RON"
+    quantity: "250g"
+    status: "Available"
+  ){
+    id
+    name
+  }
+}
+
+
+#coffees by origins
+query {
+  coffeesByOrigin {
+    origin
+    coffees {
+      id
+      name
+      price
+    }
+  }
+}

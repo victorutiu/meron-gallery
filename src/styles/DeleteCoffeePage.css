@@ -1,0 +1,110 @@
+.delete-page
+{
+    height:100vh;
+    background:#f4f3f1;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    font-family:Inter, sans-serif;
+
+    position:relative;
+    overflow:hidden;
+}
+
+
+.delete-content
+{
+    text-align:center;
+}
+
+.delete-content h2
+{
+    font-size:28px;
+    margin-bottom:40px;
+}
+
+
+.delete-buttons
+{
+    display:flex;
+    justify-content:center;
+    gap:40px;
+}
+
+.delete-buttons button
+{
+    background:#c9bea9;
+    border:none;
+
+    padding:16px 40px;
+
+    border-radius:25px;
+
+    cursor:pointer;
+}
+
+.delete-buttons button:hover
+{
+    background:#b8ad97;
+}
+
+
+.delete-floating{
+  position:absolute;
+  width:120px;
+  opacity:0.5;
+  animation: fall linear infinite;
+}
+
+
+/* positions */
+
+.img1{
+  left:5%;
+  animation-duration:4s;
+}
+
+.img2{
+  left:30%;
+  animation-duration:6s;
+}
+
+.img3{
+  left:75%;
+  animation-duration:5s;
+}
+
+.img4{
+  left:80%;
+  animation-duration:7s;
+}
+
+.img5{
+  left:85%;
+  animation-duration:4.5s;
+}
+
+.img6{
+  left:90%;
+  animation-duration:7.5s;
+}
+
+@keyframes fall {
+
+  0%{
+    transform: translateY(-200px) rotate(0deg);
+    opacity:0;
+  }
+
+  50%{
+    opacity:0.7;
+  }
+
+  100%{
+    transform: translateY(100vh) rotate(360deg);
+    opacity:0;
+  }
+
+}

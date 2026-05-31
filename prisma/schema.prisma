@@ -1,0 +1,84 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Coffee {
+  id       Int    @id @default(autoincrement())
+  name     String
+  origin   String
+  process  String
+  price    String
+  quantity String
+  status   String
+  reviews Review[]
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  password  String
+  roleId    Int
+  role      Role     @relation(fields: [roleId], references: [id])
+  createdAt DateTime @default(now())
+
+  verificationCode String?
+  verificationExpiry DateTime?
+
+  resetCode String?
+  resetCodeExpiry DateTime?
+
+  reviews Review[]
+
+  logs      Log[]
+}
+
+model Role {
+  id          Int      @id @default(autoincrement())
+  name        String   @unique
+  users       User[]
+  permissions Permission[]
+}
+
+model Permission {
+  id     Int    @id @default(autoincrement())
+  name   String
+  roleId Int
+  role   Role   @relation(fields: [roleId], references: [id])
+}
+
+model Log {
+  id        Int      @id @default(autoincrement())
+
+  userId    Int?
+  email     String?
+
+  role      String
+  action    String
+
+  ipAddress String?
+  metadata  String?
+
+  createdAt DateTime @default(now())
+
+  user User? @relation(fields: [userId], references: [id])
+}
+
+model Review {
+  id        Int      @id @default(autoincrement())
+
+  rating    Int
+  comment   String
+
+  userId    Int
+  coffeeId  Int
+
+  createdAt DateTime @default(now())
+
+  user   User   @relation(fields: [userId], references: [id])
+  coffee Coffee @relation(fields: [coffeeId], references: [id])
+}

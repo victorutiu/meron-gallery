@@ -1,0 +1,204 @@
+.edit-page
+{
+	max-width:1100px;
+	margin:0 auto;
+	padding:60px 0;
+	font-family:Inter, sans-serif;
+}
+
+.edit-logo
+{
+    font-size:44px;
+    font-weight:700;
+    margin-bottom:50px;
+}
+
+.edit-content
+{
+	width:100%;
+	max-width:1000px;
+	margin:40px auto;
+
+	background:#c9bea9;
+	border-radius:30px;
+
+	padding:50px;
+
+	display:flex;
+	align-items:center;
+	justify-content:center;   /* key change */
+
+	gap:80px;                 /* equal spacing between sections */
+}
+
+
+/* LEFT SIDE */
+
+.edit-info
+{
+    display:flex;
+    flex-direction:column;
+    gap:16px;
+    min-width:320px;
+}
+
+.edit-row
+{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.edit-row label
+{
+    width:90px;
+    font-size:18px;
+}
+
+.edit-title
+{
+    font-size:26px;
+    font-weight:600;
+    margin-bottom:10px;
+
+    background:#e6dfd3;
+    border:1px solid #a7a09a;
+    border-radius:6px;
+    padding:6px 10px;
+}
+
+.edit-row input
+{
+    flex:1;
+    padding:6px 10px;
+
+    border-radius:6px;
+    border:1px solid #a7a09a;
+
+    background:#e6dfd3;
+}
+
+
+/* CHART */
+
+.edit-chart
+{
+    width:240px;
+}
+
+.chart
+{
+    display:flex;
+    align-items:flex-end;
+    gap:24px;
+    height:140px;
+    margin-bottom:12px;
+}
+
+.bar
+{
+    width:36px;
+    background:#9e9485;
+    border-radius:4px;
+}
+
+.body
+{
+    height:110px;
+}
+
+.acidity
+{
+    height:50px;
+}
+
+.sweetness
+{
+    height:70px;
+}
+
+.aroma
+{
+    height:90px;
+}
+
+.chart-labels
+{
+    display:flex;
+    justify-content:space-between;
+    font-size:14px;
+}
+
+
+/* IMAGE */
+
+.edit-image
+{
+	background:#dcdcdc;
+	border-radius:12px;
+
+	display:flex;
+	align-items:center;
+	justify-content:center;
+
+	padding:20px;
+
+	width:210px;
+	height:210px;
+
+	flex-shrink:0;
+}
+
+.edit-image img
+{
+	max-width:100%;
+	max-height:100%;
+	object-fit:contain;
+    border-radius:12px;
+}
+
+
+/* BUTTONS */
+
+.edit-buttons
+{
+    margin-top:50px;
+
+    display:flex;
+    justify-content:center;
+    gap:30px;
+}
+
+.edit-buttons button
+{
+    background:#c9bea9;
+    border:none;
+
+    padding:14px 30px;
+
+    border-radius:25px;
+
+    cursor:pointer;
+}
+
+.edit-buttons button:hover
+{
+    background:#b8ad97;
+}
+
+/*  RESPONSIVE  */
+
+@media (max-width:768px){
+
+  .edit-content{
+    flex-direction:column;
+    gap:40px;
+    padding:30px;
+  }
+
+  .edit-info{
+    min-width:auto;
+    width:100%;
+  }
+
+}
