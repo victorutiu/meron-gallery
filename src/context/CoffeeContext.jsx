@@ -155,7 +155,13 @@ async function login(
   // ------------------------------
   useEffect(()=>{
 
-    const socket = new WebSocket(`ws://${window.location.hostname}:8080`)
+    const socket = new WebSocket(
+
+    import.meta.env.PROD
+      ? "wss://meron-gallery-api.onrender.com"
+      : `ws://${window.location.hostname}:8080`
+
+)
 
     socket.onopen = ()=>{
       console.log("Connected to WebSocket server")

@@ -258,10 +258,21 @@ async function startServer() {
 
   await connectMongo()
 
-  wss =
-    new WebSocketServer({
-      port: 8080
-    })
+  const server = app.listen(
+  PORT,
+  "0.0.0.0",
+  () => {
+
+    console.log(
+      `Server running on port ${PORT}`
+    )
+  }
+)
+
+wss = new WebSocketServer({
+  server
+})
+
 
   wss.on(
     "connection",
@@ -340,16 +351,6 @@ async function startServer() {
 
   await startGraphQL()
 
-  app.listen(
-    PORT,
-    "0.0.0.0",
-    () => {
-
-      console.log(
-        `Server running on port ${PORT}`
-      )
-    }
-  )
 }
 
 if (
