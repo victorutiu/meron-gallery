@@ -271,6 +271,8 @@ async function startServer() {
 
   await connectMongo()
 
+   await startGraphQL()
+
   const server = app.listen(
   PORT,
   "0.0.0.0",
@@ -361,8 +363,6 @@ wss = new WebSocketServer({
       )
     }
   )
-
-  await startGraphQL()
 
 }
 
