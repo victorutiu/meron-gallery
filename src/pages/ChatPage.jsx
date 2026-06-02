@@ -4,129 +4,246 @@ import "../styles/ChatPage.css"
 
 function ChatPage(){
 
-const [messages, setMessages] = useState([])
-const [text, setText] = useState("")
-const [socket, setSocket] = useState(null)
+  const [messages, setMessages] =
+    useState([])
 
-const navigate = useNavigate()
+  const [text, setText] =
+    useState("")
 
-const user = JSON.parse(localStorage.getItem("user"))
-console.log(user)
+  const [socket, setSocket] =
+    useState(null)
 
-useEffect(() => {
-if (!user) {
-navigate("/login")
-}
-}, [])
+  const navigate =
+    useNavigate()
 
-useEffect(()=>{
+  const user =
+    JSON.parse(
+      localStorage.getItem("user")
+    )
 
-const ws = new WebSocket("ws://172.20.10.2:8080")
+  const API =
+    import.meta.env.PROD
+      ? "https://meron-gallery-api.onrender.com"
+      : "http://localhost:3000"
 
-ws.onopen = () => {
-  console.log("Connected to chat")
-}
+  const WS_URL =
+    import.meta.env.PROD
+      ? "wss://meron-gallery-api.onrender.com"
+      : "ws://localhost:8080"
 
-ws.onmessage = (event) => {
+  useEffect(() => {
 
-  const msg = JSON.parse(event.data)
+    if(!user){
+      navigate("/login")
+    }
 
-  if(msg.type === "chat"){
-    setMessages(prev => [...prev, msg.data])
+  }, [])
+
+  useEffect(() => {
+
+    const ws =
+      new WebSocket(
+        WS_URL
+      )
+
+    ws.onopen = () => {
+      console.log(
+        "Connected to WebSocket server"
+      )
+    }
+
+    ws.onmessage = (
+      event
+    ) => {
+
+      const msg =
+        JSON.parse(
+          event.data
+        )
+
+      if(
+        msg.type ===
+        "chat"
+      ){
+
+        setMessages(
+          prev => [
+            ...prev,
+            msg.data
+          ]
+        )
+      }
+    }
+
+    ws.onerror = (
+      err
+    ) => {
+
+      console.log(
+        "WebSocket error:",
+        err
+      )
+    }
+
+    ws.onclose = () => {
+
+      console.log(
+        "WebSocket disconnected"
+      )
+    }
+
+    setSocket(ws)
+
+    return () =>
+      ws.close()
+
+  }, [])
+
+  useEffect(() => {
+
+    async function loadMessages(){
+
+      try {
+
+        const res =
+          await fetch(
+            `${API}/chat/messages`
+          )
+
+        const data =
+          await res.json()
+
+        setMessages(
+          data
+        )
+
+      } catch(err){
+
+        console.log(
+          "Failed to load messages",
+          err
+        )
+      }
+    }
+
+    loadMessages()
+
+  }, [])
+
+  useEffect(() => {
+
+    const box =
+      document.getElementById(
+        "chat-box"
+      )
+
+    if(box){
+      box.scrollTop =
+        box.scrollHeight
+    }
+
+  }, [messages])
+
+  function sendMessage(){
+
+    if(
+      !text.trim()
+    ) return
+
+    if(
+      !socket
+    ) return
+
+    socket.send(
+      JSON.stringify({
+        type: "chat",
+
+        user:
+          user?.user?.email ||
+          user?.email ||
+          "anonymous",
+
+        text
+      })
+    )
+
+    setText("")
+
   }
-}
 
-ws.onerror = (err) => {
-  console.log("WebSocket error:", err)
-}
+  return (
 
-ws.onclose = () => {
-  console.log("Disconnected from chat")
-}
+    <div className="chat-page">
 
-setSocket(ws)
+      <h2 className="chat-title">
+        Meron Gallery.
+      </h2>
 
-return () => ws.close()
+      <div
+        id="chat-box"
+        className="chat-box"
+      >
 
-},[])
+        {messages.map(
+          (m, i) => (
 
-useEffect(() => {
+          <p
+            key={i}
+            className="chat-message"
+          >
 
-async function loadMessages(){
-  try{
-    const res = await fetch("https://172.20.10.2:3000/chat/messages")
-    const data = await res.json()
-    setMessages(data)
-  }catch(err){
-    console.log("Failed to load messages", err)
-  }
-}
+            <b>
+              {m.user}:
+            </b>
 
-loadMessages()
+            {" "}
+            {m.text}
 
-}, [])
+          </p>
+        ))}
+      </div>
 
-useEffect(() => {
-const box = document.getElementById("chat-box")
-if(box){
-box.scrollTop = box.scrollHeight
-}
-}, [messages])
+      <div>
 
-function sendMessage(){
+        <input
+          className="chat-input"
 
-if(!text.trim()) return
-if(!socket) return
+          value={text}
 
-socket.send(JSON.stringify({
-  type: "chat",
-  user:
-  user?.user?.email ||
-  user?.email ||
-  "anonymous",
-  text
-}))
+          onChange={(e)=>
+            setText(
+              e.target.value
+            )
+          }
 
-setText("")
+          placeholder="Type a message..."
+        />
 
-}
+        <button
+          className="chat-send-btn"
+          onClick={
+            sendMessage
+          }
+        >
+          Send
+        </button>
 
-return (
-<div className="chat-page">
+      </div>
 
-  <h2 className="chat-title">Meron Gallery.</h2>
+      <div className="chat-buttons">
 
-  <div id="chat-box" className="chat-box">
-    {messages.map((m, i) => (
-      <p key={i} className="chat-message">
-        <b>{m.user}:</b> {m.text}
-      </p>
-    ))}
-  </div>
+        <button
+          onClick={() =>
+            navigate("/")
+          }
+        >
+          Back
+        </button>
 
-  <div>
-    <input
-      className="chat-input"
-      value={text}
-      onChange={(e)=>setText(e.target.value)}
-      placeholder="Type a message..."
-    />
+      </div>
 
-    <button className="chat-send-btn" onClick={sendMessage}>
-      Send
-    </button>
-  </div>
-
-  {/* ✅ BACK BUTTON AT BOTTOM */}
-  <div className="chat-buttons">
-    <button onClick={() => navigate("/")}>
-      Back
-    </button>
-  </div>
-
-</div>
-)
-
+    </div>
+  )
 }
 
 export default ChatPage
