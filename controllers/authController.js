@@ -4,74 +4,97 @@ import { logAction } from "../src/utils/logger.js"
 import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken"
 
-import { sendCodeEmail }
-from "../src/services/mailer.js"
-
-import {
-  sendResetEmail
-} from "../src/services/mailer.js"
 // ----------------------
 // REGISTER
 // ----------------------
+export const register = async (
+  req,
+  res
+) => {
 
-export const register = async (req, res) => {
   try {
 
-    const { email, password } = req.body
+    const {
+      email,
+      password
+    } = req.body
 
-    if (!email || !password) {
+    if (
+      !email ||
+      !password
+    ) {
       return res.status(400).json({
-        message: "Missing fields"
+        message:
+          "Missing fields"
       })
     }
 
-    // role assignment
     const roleName =
-      email.includes("@merongallery.com")
+      email.includes(
+        "@merongallery.com"
+      )
         ? "admin"
         : "user"
 
-    const role = await prisma.role.findUnique({
-      where: { name: roleName }
-    })
+    const role =
+      await prisma.role.findUnique({
+        where: {
+          name: roleName
+        }
+      })
 
     if (!role) {
+
       return res.status(500).json({
-        message: "Role not found"
+        message:
+          "Role not found"
       })
     }
 
-    // HASH PASSWORD
     const hashedPassword =
-      await bcrypt.hash(password, 10)
+      await bcrypt.hash(
+        password,
+        10
+      )
 
-    const user = await prisma.user.create({
+    await prisma.user.create({
+
       data: {
         email,
-        password: hashedPassword,
-        roleId: role.id
+        password:
+          hashedPassword,
+
+        roleId:
+          role.id
       },
+
       include: {
         role: true
       }
     })
 
     res.status(201).json({
-      message: "User registered successfully"
+      message:
+        "User registered successfully"
     })
 
   } catch (err) {
 
     console.error(err)
 
-    if (err.code === "P2002") {
+    if (
+      err.code === "P2002"
+    ) {
+
       return res.status(400).json({
-        message: "Email already exists"
+        message:
+          "Email already exists"
       })
     }
 
     res.status(500).json({
-      message: "Server error"
+      message:
+        "Server error"
     })
   }
 }
@@ -93,7 +116,10 @@ export const login = async (
 
     const user =
       await prisma.user.findFirst({
-        where: { email },
+
+        where: {
+          email
+        },
 
         include: {
           role: true
@@ -103,13 +129,19 @@ export const login = async (
     if (!user) {
 
       await prisma.log.create({
-      data: {
-        email,
-        role: "guest",
-        action: "FAILED_LOGIN",
-        ipAddress: req.ip
-      }
-    })
+        data: {
+          email,
+          role:
+            "guest",
+
+          action:
+            "FAILED_LOGIN",
+
+          ipAddress:
+            req.ip
+        }
+      })
+
       return res.status(401).json({
         message:
           "Invalid credentials"
@@ -125,14 +157,19 @@ export const login = async (
     if (!validPassword) {
 
       await prisma.log.create({
-    data: {
-      email,
-      role: "guest",
-      action: "FAILED_LOGIN",
-      ipAddress: req.ip
-    }
-  })
-  
+        data: {
+          email,
+          role:
+            "guest",
+
+          action:
+            "FAILED_LOGIN",
+
+          ipAddress:
+            req.ip
+        }
+      })
+
       return res.status(401).json({
         message:
           "Invalid credentials"
@@ -143,7 +180,8 @@ export const login = async (
     const code =
       Math.floor(
         100000 +
-        Math.random() * 900000
+        Math.random() *
+        900000
       ).toString()
 
     // expires in 10 min
@@ -160,6 +198,7 @@ export const login = async (
       },
 
       data: {
+
         verificationCode:
           code,
 
@@ -168,21 +207,24 @@ export const login = async (
       }
     })
 
-    // send email
-    await sendCodeEmail(
-      user.email,
+    console.log(
+      "Verification code:",
       code
     )
 
     res.json({
 
       message:
-        "Verification code sent",
+        "Verification code generated",
 
       requiresVerification:
         true,
 
-      email: user.email
+      email:
+        user.email,
+
+      debugCode:
+        code
     })
 
   } catch (err) {
@@ -196,7 +238,9 @@ export const login = async (
   }
 }
 
-
+// ----------------------
+// VERIFY CODE
+// ----------------------
 export const verifyCode =
 async (req, res) => {
 
@@ -224,6 +268,7 @@ async (req, res) => {
       user.verificationCode
         !== code
     ) {
+
       return res.status(400).json({
         message:
           "Invalid code"
@@ -234,6 +279,7 @@ async (req, res) => {
       new Date() >
       user.verificationExpiry
     ) {
+
       return res.status(400).json({
         message:
           "Code expired"
@@ -242,14 +288,20 @@ async (req, res) => {
 
     const token =
       jwt.sign(
+
         {
-          id: user.id,
-          email: user.email,
+          id:
+            user.id,
+
+          email:
+            user.email,
+
           role:
             user.role.name
         },
 
-        process.env.JWT_SECRET,
+        process.env
+          .JWT_SECRET,
 
         {
           expiresIn:
@@ -261,10 +313,12 @@ async (req, res) => {
     await prisma.user.update({
 
       where: {
-        id: user.id
+        id:
+          user.id
       },
 
       data: {
+
         verificationCode:
           null,
 
@@ -278,8 +332,13 @@ async (req, res) => {
       token,
 
       user: {
-        id: user.id,
-        email: user.email,
+
+        id:
+          user.id,
+
+        email:
+          user.email,
+
         role:
           user.role.name
       }
@@ -296,20 +355,28 @@ async (req, res) => {
   }
 }
 
+// ----------------------
+// FORGOT PASSWORD
+// ----------------------
 export const forgotPassword =
 async (req, res) => {
 
   try {
 
-    const { email } =
-      req.body
+    const {
+      email
+    } = req.body
 
     const user =
       await prisma.user.findUnique({
-        where: { email }
+
+        where: {
+          email
+        }
       })
 
-    if(!user){
+    if (!user) {
+
       return res.status(404).json({
         message:
           "User not found"
@@ -332,10 +399,12 @@ async (req, res) => {
     await prisma.user.update({
 
       where: {
-        id: user.id
+        id:
+          user.id
       },
 
       data: {
+
         resetCode:
           code,
 
@@ -344,17 +413,21 @@ async (req, res) => {
       }
     })
 
-    await sendResetEmail(
-      user.email,
+    console.log(
+      "Reset code:",
       code
     )
 
     res.json({
+
       message:
-        "Reset code sent"
+        "Reset code generated",
+
+      debugCode:
+        code
     })
 
-  } catch(err){
+  } catch (err) {
 
     console.error(err)
 
@@ -365,7 +438,9 @@ async (req, res) => {
   }
 }
 
-
+// ----------------------
+// RESET PASSWORD
+// ----------------------
 export const resetPassword =
 async (req, res) => {
 
@@ -385,21 +460,23 @@ async (req, res) => {
         }
       })
 
-    if(
+    if (
       !user ||
       user.resetCode
         !== code
-    ){
+    ) {
+
       return res.status(400).json({
         message:
           "Invalid code"
       })
     }
 
-    if(
+    if (
       new Date() >
       user.resetCodeExpiry
-    ){
+    ) {
+
       return res.status(400).json({
         message:
           "Code expired"
@@ -415,7 +492,8 @@ async (req, res) => {
     await prisma.user.update({
 
       where: {
-        id: user.id
+        id:
+          user.id
       },
 
       data: {
@@ -436,7 +514,7 @@ async (req, res) => {
         "Password reset successful"
     })
 
-  } catch(err){
+  } catch (err) {
 
     console.error(err)
 
