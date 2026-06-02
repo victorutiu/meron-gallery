@@ -8,7 +8,7 @@ import "../styles/AuthExtraPages.css"
 
 import {
   verifyCode
-} from "../api/api" // adjust path if needed
+} from "../api" // adjust path if needed
 
 function VerifyCodePage(){
 
