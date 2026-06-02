@@ -1,7 +1,14 @@
 import { useState } from "react"
-import { useNavigate, useLocation }
-from "react-router-dom"
+import {
+  useNavigate,
+  useLocation
+} from "react-router-dom"
+
 import "../styles/AuthExtraPages.css"
+
+import {
+  verifyCode
+} from "../api/api" // adjust path if needed
 
 function VerifyCodePage(){
 
@@ -21,34 +28,11 @@ function VerifyCodePage(){
 
     try {
 
-      const res =
-        await fetch(
-          "/api/auth/verify",
-          {
-            method: "POST",
-
-            headers: {
-              "Content-Type":
-                "application/json"
-            },
-
-            body:
-              JSON.stringify({
-                email,
-                code
-              })
-          }
-        )
-
       const data =
-        await res.json()
-
-      if(!res.ok){
-        alert(
-          data.message
+        await verifyCode(
+          email,
+          code
         )
-        return
-      }
 
       localStorage.setItem(
         "user",
@@ -69,6 +53,7 @@ function VerifyCodePage(){
       console.log(err)
 
       alert(
+        err.message ||
         "Verification failed"
       )
     }
@@ -76,54 +61,65 @@ function VerifyCodePage(){
 
   return (
 
-  <div className="auth-page">
+    <div className="auth-page">
 
-    <h1 className="auth-logo">
-      Meron Gallery.
-    </h1>
+      <h1 className="auth-logo">
+        Meron Gallery.
+      </h1>
 
-    <div className="auth-card">
+      <div className="auth-card">
 
-      <h2>
-        Verify Login
-      </h2>
+        <h2>
+          Verify Login
+        </h2>
 
-      <p>
-        We sent a verification code to:
-      </p>
+        <p>
+          We sent a verification
+          code to:
+        </p>
 
-      <b>{email}</b>
+        <b>{email}</b>
 
-      <input
-        value={code}
-        onChange={(e)=>
-          setCode(e.target.value)
-        }
-        placeholder="6-digit code"
-      />
-
-      <div className="auth-buttons">
-
-        <button
-          onClick={handleVerify}
-        >
-          Verify
-        </button>
-
-        <button
-          onClick={() =>
-            navigate("/login")
+        <input
+          value={code}
+          onChange={(e)=>
+            setCode(
+              e.target.value
+            )
           }
+          placeholder=
+            "6-digit code"
+        />
+
+        <div
+          className=
+            "auth-buttons"
         >
-          Back
-        </button>
+
+          <button
+            onClick={
+              handleVerify
+            }
+          >
+            Verify
+          </button>
+
+          <button
+            onClick={() =>
+              navigate(
+                "/login"
+              )
+            }
+          >
+            Back
+          </button>
+
+        </div>
 
       </div>
 
     </div>
-
-  </div>
-)
+  )
 }
 
 export default VerifyCodePage
