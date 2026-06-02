@@ -105,10 +105,9 @@ function ChatPage(){
 
       try {
 
-        const res =
-          await fetch(
-            `${API}/chat/messages`
-          )
+        const res = await fetch(
+  `${API}/api/chat/messages`
+)
 
         const data =
           await res.json()
