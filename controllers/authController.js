@@ -7,7 +7,8 @@ import jwt from "jsonwebtoken"
 import {
   sendCodeEmail,
   sendResetEmail
-} from "../../src/services/mailer.js"
+} from "../src/services/mailer.js"
+
 // ----------------------
 // REGISTER
 // ----------------------
