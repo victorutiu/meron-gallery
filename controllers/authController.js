@@ -4,6 +4,10 @@ import { logAction } from "../src/utils/logger.js"
 import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken"
 
+import {
+  sendCodeEmail,
+  sendResetEmail
+} from "../services/mailer.js"
 // ----------------------
 // REGISTER
 // ----------------------
@@ -207,10 +211,10 @@ export const login = async (
       }
     })
 
-    console.log(
-      "Verification code:",
-      code
-    )
+    await sendCodeEmail(
+  user.email,
+  code
+)
 
     res.json({
 
@@ -413,10 +417,10 @@ async (req, res) => {
       }
     })
 
-    console.log(
-      "Reset code:",
-      code
-    )
+    await sendResetEmail(
+  user.email,
+  code
+)
 
     res.json({
 

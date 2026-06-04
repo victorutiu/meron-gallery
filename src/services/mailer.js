@@ -1,34 +1,20 @@
-import nodemailer from "nodemailer"
+import sgMail from "@sendgrid/mail"
 
-const transporter =
-  nodemailer.createTransport({
-
-    host: "smtp.gmail.com",
-
-    port: 587,
-
-    secure: false,
-
-    auth: {
-      user:
-        process.env.EMAIL_USER,
-
-      pass:
-        process.env.EMAIL_PASS
-    }
-  })
+sgMail.setApiKey(
+  process.env.SENDGRID_API_KEY
+)
 
 export async function sendCodeEmail(
   email,
   code
 ){
 
-  await transporter.sendMail({
-
-    from:
-      process.env.EMAIL_USER,
+  await sgMail.send({
 
     to: email,
+
+    from:
+      process.env.FROM_EMAIL,
 
     subject:
       "Meron Gallery Verification Code",
@@ -58,12 +44,12 @@ export async function sendResetEmail(
   code
 ){
 
-  await transporter.sendMail({
-
-    from:
-      process.env.EMAIL_USER,
+  await sgMail.send({
 
     to: email,
+
+    from:
+      process.env.FROM_EMAIL,
 
     subject:
       "Meron Gallery Password Reset",
