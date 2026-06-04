@@ -16,51 +16,87 @@ function RegisterPage(){
 
   async function handleRegister(){
 
-  if(!firstName || !lastName || !email || !password || !confirmPassword){
-    setError("All fields are required")
+  if(
+    !firstName ||
+    !lastName ||
+    !email ||
+    !password ||
+    !confirmPassword
+  ){
+    setError(
+      "All fields are required"
+    )
     return
   }
 
   if(!email.includes("@")){
-    setError("Invalid email")
+    setError(
+      "Invalid email"
+    )
     return
   }
 
   if(password !== confirmPassword){
-    setError("Passwords do not match")
+    setError(
+      "Passwords do not match"
+    )
     return
   }
 
-  try{
+  try {
 
-    const res = await fetch("https://172.20.10.2:3000/auth/register", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        email: email.trim(),
-        password: password.trim()
-      })
-    })
+    const API =
+      import.meta.env.PROD
+        ? "https://meron-gallery-api.onrender.com/api"
+        : "/api"
 
-    // 🔥 SAFELY handle response
-    let data = null
-    try {
-      data = await res.json()
-    } catch {
-      data = {}
-    }
+    const res =
+      await fetch(
+        `${API}/auth/register`,
+        {
+          method: "POST",
+
+          headers: {
+            "Content-Type":
+              "application/json"
+          },
+
+          body:
+            JSON.stringify({
+              email:
+                email.trim(),
+
+              password:
+                password.trim()
+            })
+        }
+      )
+
+    const data =
+      await res.json()
 
     if(!res.ok){
-      throw new Error(data.message || "Register failed")
+
+      throw new Error(
+        data.message ||
+        "Register failed"
+      )
     }
+
+    alert(
+      "Registration successful"
+    )
 
     navigate("/login")
 
-  }catch(err){
+  } catch(err){
+
     console.error(err)
-    setError(err.message || "Something went wrong")
+
+    setError(
+      err.message ||
+      "Something went wrong"
+    )
   }
 }
 
